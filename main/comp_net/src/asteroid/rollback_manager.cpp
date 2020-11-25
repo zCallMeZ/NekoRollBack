@@ -329,15 +329,16 @@ void RollbackManager::OnCollision(Entity entity1, Entity entity2)
                 playerCharacter.invincibilityTime = playerInvincibilityPeriod;
             }
             currentPlayerManager_.SetComponent(playerEntity, playerCharacter);
+            RespawnPlayer();
         }
     };
+
     if (entityManager_.HasComponent(entity1, EntityMask(ComponentType::PLAYER_CHARACTER)) &&
         entityManager_.HasComponent(entity2, EntityMask(ComponentType::BULLET)))
     {
         const auto& player = currentPlayerManager_.GetComponent(entity1);
         const auto& bullet = currentBulletManager_.GetComponent(entity2);
         ManageCollision(player, entity1, bullet, entity2);
-
     }
     if (entityManager_.HasComponent(entity2, EntityMask(ComponentType::PLAYER_CHARACTER)) &&
         entityManager_.HasComponent(entity1, EntityMask(ComponentType::BULLET)))
@@ -345,6 +346,34 @@ void RollbackManager::OnCollision(Entity entity1, Entity entity2)
         const auto& player = currentPlayerManager_.GetComponent(entity2);
         const auto& bullet = currentBulletManager_.GetComponent(entity1);
         ManageCollision(player, entity2, bullet, entity1);
+    }
+}
+
+void RollbackManager::RespawnPlayer()
+{
+    for (Entity playerEntity = 0; playerEntity < entityManager_.GetEntitiesSize(); playerEntity++)
+    {
+        if (!entityManager_.HasComponent(playerEntity,
+            EntityMask(ComponentType::PLAYER_CHARACTER)))
+            continue;
+
+        auto playerCharacter = currentPlayerManager_.GetComponent(playerEntity);
+        if (playerCharacter.playerNumber == 0)
+        {
+            auto body1 = currentPhysicsManager_.GetBody(playerEntity);
+            body1.position = Vec2f(0, 1);
+            body1.velocity = Vec2f::zero;   
+            body1.rotation = degree_t(0.0f);
+            currentPhysicsManager_.SetBody(playerEntity, body1);
+        }
+        if (playerCharacter.playerNumber == 1)
+        {
+            auto body2 = currentPhysicsManager_.GetBody(playerEntity);
+            body2.position = Vec2f(0, -1);
+            body2.velocity = Vec2f::zero;
+            body2.rotation = degree_t(180.0f);
+            currentPhysicsManager_.SetBody(playerEntity, body2);
+        }
     }
 }
 

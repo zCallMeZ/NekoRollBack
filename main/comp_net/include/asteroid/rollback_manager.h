@@ -79,6 +79,8 @@ public:
     void DestroyEntity(Entity entity);
 
     void OnCollision(Entity entity1, Entity entity2) override;
+
+    void RespawnPlayer();
 private:
     net::PlayerInput GetInputAtFrame(net::PlayerNumber playerNumber, net::Frame frame);
     GameManager& gameManager_;

@@ -62,6 +62,11 @@ void PlayerCharacterManager::FixedUpdate(seconds dt)
         const auto acceleration = ((down ? -1.0f : 0.0f) + (up ? 1.0f : 0.0f)) * dir;
 
 
+        
+
+
+
+
         playerBody.velocity += acceleration * dt.count();
 
         physicsManager_.get().SetBody(playerEntity, playerBody);
