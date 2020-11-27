@@ -24,11 +24,12 @@
 
 #include "asteroid/bullet_manager.h"
 #include "asteroid/game.h"
+#include "asteroid/physics_manager.h"
 
 namespace neko::asteroid
 {
-BulletManager::BulletManager(EntityManager& entityManager, GameManager& gameManager) :
-    ComponentManager(entityManager), gameManager_(gameManager)
+BulletManager::BulletManager(EntityManager& entityManager, GameManager& gameManager, PhysicsManager& physicsManager) :
+    ComponentManager(entityManager), gameManager_(gameManager), physicsManager_(physicsManager)
 {
 }
 
@@ -44,6 +45,35 @@ void BulletManager::FixedUpdate(seconds dt)
             {
                 entityManager_.get().DestroyEntity(entity);
             }
+
+            if (physicsManager_.get().GetBody(entity).position.x > 5)
+            {
+                auto body = physicsManager_.get().GetBody(entity);
+                body.velocity.x = -abs(body.velocity.x);
+                physicsManager_.get().SetBody(entity, body);
+            }
+
+            if (physicsManager_.get().GetBody(entity).position.x < -5)
+            {
+                auto body = physicsManager_.get().GetBody(entity);
+                body.velocity.x = abs(body.velocity.x);
+                physicsManager_.get().SetBody(entity, body);
+            }
+
+            if (physicsManager_.get().GetBody(entity).position.y < -5)
+            {
+                auto body = physicsManager_.get().GetBody(entity);
+                body.velocity.y = abs(body.velocity.y);
+                physicsManager_.get().SetBody(entity, body);
+            }
+
+            if (physicsManager_.get().GetBody(entity).position.y > 5)
+            {
+                auto body = physicsManager_.get().GetBody(entity);
+                body.velocity.y = -abs(body.velocity.y);
+                physicsManager_.get().SetBody(entity, body);
+            }
+
         }
     }
 }

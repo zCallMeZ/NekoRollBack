@@ -35,12 +35,14 @@ struct Bullet
     net::PlayerNumber playerNumber = net::INVALID_PLAYER;
 };
 class GameManager;
+class PhysicsManager;
 class BulletManager : public ComponentManager<Bullet, static_cast<EntityMask>(ComponentType::BULLET)>
 {
 public:
-    explicit BulletManager(EntityManager& entityManager, GameManager& gameManager);
+    explicit BulletManager(EntityManager& entityManager, GameManager& gameManager, PhysicsManager& physicsManager);
     void FixedUpdate(seconds dt);
 private:
     std::reference_wrapper<GameManager> gameManager_;
+    std::reference_wrapper<PhysicsManager> physicsManager_;
 };
 }

@@ -37,9 +37,9 @@ RollbackManager::RollbackManager(GameManager& gameManager, EntityManager& entity
     gameManager_(gameManager), entityManager_(entityManager),
     currentTransformManager_(entityManager),
     currentPhysicsManager_(entityManager), currentPlayerManager_(entityManager, currentPhysicsManager_, gameManager_),
-    currentBulletManager_(entityManager, gameManager),
+    currentBulletManager_(entityManager, gameManager, currentPhysicsManager_),
     lastValidatePhysicsManager_(entityManager),
-    lastValidatePlayerManager_(entityManager, lastValidatePhysicsManager_, gameManager_), lastValidateBulletManager_(entityManager, gameManager)
+    lastValidatePlayerManager_(entityManager, lastValidatePhysicsManager_, gameManager_), lastValidateBulletManager_(entityManager, gameManager, lastValidatePhysicsManager_)
 {
     for (auto& input : inputs_)
     {
@@ -331,6 +331,7 @@ void RollbackManager::OnCollision(Entity entity1, Entity entity2)
             currentPlayerManager_.SetComponent(playerEntity, playerCharacter);
             RespawnPlayer();
         }
+
     };
 
     if (entityManager_.HasComponent(entity1, EntityMask(ComponentType::PLAYER_CHARACTER)) &&
