@@ -301,7 +301,7 @@ void ClientGameManager::SpawnPlayer(net::PlayerNumber playerNumber, Vec2f positi
     const auto& config = BasicEngine::GetInstance()->config;
     if (shipTextureId_ == INVALID_TEXTURE_ID)
     {
-        shipTextureId_ = textureManager_.LoadTexture(config.dataRootPath + "sprites/asteroid/ship.png");
+        shipTextureId_ = textureManager_.LoadTexture(config.dataRootPath + "sprites/asteroid/tanks1.png");
     }
     spriteManager_.AddComponent(entity);
     spriteManager_.SetTexture(entity, shipTextureId_);
