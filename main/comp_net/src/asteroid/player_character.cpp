@@ -65,28 +65,28 @@ void PlayerCharacterManager::FixedUpdate(seconds dt)
 
         physicsManager_.get().SetBody(playerEntity, playerBody);
 
-        if (physicsManager_.get().GetBody(playerEntity).position.x > 5 && physicsManager_.get().GetBody(playerEntity).velocity.x > 0)
+        if (physicsManager_.get().GetBody(playerEntity).position.x > 8 && physicsManager_.get().GetBody(playerEntity).velocity.x > 0)
         {
             auto body = physicsManager_.get().GetBody(playerEntity);
             body.velocity.x *= 0;
             physicsManager_.get().SetBody(playerEntity, body);
         }
 
-        if (physicsManager_.get().GetBody(playerEntity).position.x < -5 && physicsManager_.get().GetBody(playerEntity).velocity.x < 0)
+        if (physicsManager_.get().GetBody(playerEntity).position.x < -8 && physicsManager_.get().GetBody(playerEntity).velocity.x < 0)
         {
             auto body = physicsManager_.get().GetBody(playerEntity);
             body.velocity.x *= 0;
             physicsManager_.get().SetBody(playerEntity, body);
         }
 
-        if (physicsManager_.get().GetBody(playerEntity).position.y < -5 && physicsManager_.get().GetBody(playerEntity).velocity.y < 0)
+        if (physicsManager_.get().GetBody(playerEntity).position.y < -8 && physicsManager_.get().GetBody(playerEntity).velocity.y < 0)
         {
             auto body = physicsManager_.get().GetBody(playerEntity);
             body.velocity.y = 0;
             physicsManager_.get().SetBody(playerEntity, body);
         }
 
-        if (physicsManager_.get().GetBody(playerEntity).position.y > 5 && physicsManager_.get().GetBody(playerEntity).velocity.y > 0)
+        if (physicsManager_.get().GetBody(playerEntity).position.y > 8 && physicsManager_.get().GetBody(playerEntity).velocity.y > 0)
         {
             auto body = physicsManager_.get().GetBody(playerEntity);
             body.velocity.y = 0;

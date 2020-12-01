@@ -46,28 +46,28 @@ void BulletManager::FixedUpdate(seconds dt)
                 entityManager_.get().DestroyEntity(entity);
             }
 
-            if (physicsManager_.get().GetBody(entity).position.x > 5)
+            if (physicsManager_.get().GetBody(entity).position.x > 8)
             {
                 auto body = physicsManager_.get().GetBody(entity);
                 body.velocity.x = -abs(body.velocity.x);
                 physicsManager_.get().SetBody(entity, body);
             }
 
-            if (physicsManager_.get().GetBody(entity).position.x < -5)
+            if (physicsManager_.get().GetBody(entity).position.x < -8)
             {
                 auto body = physicsManager_.get().GetBody(entity);
                 body.velocity.x = abs(body.velocity.x);
                 physicsManager_.get().SetBody(entity, body);
             }
 
-            if (physicsManager_.get().GetBody(entity).position.y < -5)
+            if (physicsManager_.get().GetBody(entity).position.y < -8)
             {
                 auto body = physicsManager_.get().GetBody(entity);
                 body.velocity.y = abs(body.velocity.y);
                 physicsManager_.get().SetBody(entity, body);
             }
 
-            if (physicsManager_.get().GetBody(entity).position.y > 5)
+            if (physicsManager_.get().GetBody(entity).position.y > 8)
             {
                 auto body = physicsManager_.get().GetBody(entity);
                 body.velocity.y = -abs(body.velocity.y);
